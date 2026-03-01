@@ -1,10 +1,11 @@
 package com.artfalcao.bankClone.usuario;
 
+import com.artfalcao.bankClone.domain.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("usuario")
@@ -13,8 +14,10 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping()
-    public String getUsuario(@RequestParam(defaultValue = "123") String id) {
-        return usuarioService.getUser(id);
+    @GetMapping
+    public ResponseEntity<Usuario> getUsuario(@RequestParam UUID id) {
+        Usuario usuario = usuarioService.getUser(id);
+        return ResponseEntity.ok(usuario);
     }
+
 }
